@@ -25,7 +25,7 @@ SECRET_KEY = '+!ne&f)54o@5uoeh@008mlyax8p1zxd$e&vgxu&nax=zzhe+ts'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'https://scrappingdata.herokuapp.com/']
 
 
 # Application definition
