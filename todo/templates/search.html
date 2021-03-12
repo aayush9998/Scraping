@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!--    <h1>Srcape Website</h1>-->
+    <div class="row mt-4">
+        <div class="col-4  mx-auto">
+            <form action="" method="get" class="row col-auto align-items-center">
+
+                <div class="col-10">
+                    <input type="text" class="form-control mb-2" name ="model" id="inlineFormInputGroupUsername" placeholder="Type here.....">
+                </div>
+                <div class="col-2">
+                    <button type="submit" class="btn btn-lg btn-primary mb-2">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+<!--daraz table-->
+
+<div class="container">
+  <div class="row">
+    <div class="col-6 col-sm-3">
+        <h4>daraz</h4>
+        <ul class="list-group">
+          {% for todo_item in todo_items %}
+            <li class="list-group-item">{{todo_item.title}} </br>{{todo_item.price}}</li>
+          {% endfor %}
+        </ul>
+    </div>
+<!--      sasto deal-->
+    <div class="col-6 col-sm-3">
+        <ul class="list-group">
+            <h4>Sasto Deal</h4>
+          {% for sasto_item in sasto_item %}
+            <li class="list-group-item">{{sasto_item.title}} </br>{{sasto_item.price}}</li>
+          {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Force next columns to break to new line -->
+<!--    <div class="w-100"></div>-->
+
+<!--    <div class="col-6 col-sm-3">.col-6 .col-sm-3</div>-->
+<!--    <div class="col-6 col-sm-3">.col-6 .col-sm-3</div>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+
+<!--    <div class="row mt-4">-->
+<!--        <div class="col-8 mx-auto">-->
+<!--            <ul class="list-group">-->
+<!--              {% for todo_item in todo_items %}-->
+<!--                <li class="list-group-item">{{todo_item.title}} </br>{{todo_item.price}}</li>-->
+<!--              {% endfor %}-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+
+
+<!--&lt;!&ndash;sastodeal table&ndash;&gt;-->
+<!--    <div class="row mt-4">-->
+<!--        <div class="col-8 mx-auto">-->
+<!--            <ul class="list-group">-->
+<!--              {% for sasto_item in sasto_item %}-->
+<!--                <li class="list-group-item">{{sasto_item.title}} </br>{{sasto_item.price}}</li>-->
+<!--              {% endfor %}-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+
+{% endblock %}

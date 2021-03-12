@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!--    <h1>Srcape Website</h1>-->
+    <div class="row mt-4">
+        <div class="col-4 mx-auto">
+            <form action="{% url 'add_item' %}" method="post" class="row col-auto align-items-center">
+                {% csrf_token %}
+<!--                <div class="col-10">-->
+<!--                    <input type="text" class="form-control mb-2" name ="content" id="inlineFormInputGroupUsername" placeholder="Type here.....">-->
+<!--                </div>-->
+                <div class="col">
+                    <button type="submit" class="btn btn-lg btn-primary mb-2">Daraz Scraping</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-4 mx-auto">
+            <form action="{% url 'sastodeal_item' %}" method="post" class="row col-auto align-items-center">
+                {% csrf_token %}
+<!--                <div class="col-10">-->
+<!--                    <input type="text" class="form-control mb-2" name ="content" id="inlineFormInputGroupUsername" placeholder="Type here.....">-->
+<!--                </div>-->
+                <div class="col">
+                    <button type="submit" class="btn btn-lg btn-primary mb-2">Sasto Deal Scraping</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+<!--    <div class="row mt-4">-->
+<!--        <div class="col-8 mx-auto">-->
+<!--            <ul class="list-group">-->
+<!--              {% for todo_item in todo_items %}-->
+<!--                <li class="list-group-item">{{todo_item}}-->
+<!--                    <div class="float-end">-->
+<!--                        <form action="delete_todo/{{todo_item.id}}" method="post">-->
+<!--                            {% csrf_token %}-->
+<!--                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>-->
+<!--                        </form>-->
+<!--                    </div>-->
+<!--                </li>-->
+<!--              {% endfor %}-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+
+{% endblock %}
