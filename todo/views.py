@@ -17,6 +17,8 @@ def scrape(request):
 
 def search(request):
     if request.method == 'GET':
+        todo_items = None
+        sasto_item = None
         if request.GET.get('model'):
             search = request.GET.get('model')
             print("search:"+ search)
@@ -26,18 +28,18 @@ def search(request):
 
             elif request.GET.get('darazcheck'):
                 todo_items = Daraz.objects.filter(title__contains=search)
-                sasto_item= None
+
             elif request.GET.get('sastodealcheck'):
                 sasto_item = SastoDeal.objects.filter(title__contains=search)
-                todo_items= None
-        else:
-            search = request.GET.get('model')
-            print("search:" + search)
+
+        # else:
+        #     search = request.GET.get('model')
+        #     print("search:" + search)
             # search = request.GET.get('model')
             # todo_items = Daraz.objects.filter(title__contains=search)
             # sasto_item = SastoDeal.objects.filter(title__contains=search)
-            todo_items=None
-            sasto_item=None
+            # todo_items=None
+            # sasto_item=None
 
         return render(request, 'search.html', {'todo_items': todo_items, 'sasto_item': sasto_item})
 
