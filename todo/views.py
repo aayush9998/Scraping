@@ -23,30 +23,32 @@ def search(request):
         if request.GET.get('model'):
             search = request.GET.get('model')
             print("search:"+ search)
-            if request.GET.get('darazcheck') and request.GET.get('sastodealcheck') and request.GET.get('hamrobazarcheck'):
-                todo_items = Daraz.objects.filter(title__contains=search).order_by('price')
-                sasto_item = SastoDeal.objects.filter(title__contains=search).order_by('price')
-                hamrobazar_item= Hamrobazar.objects.filter(title__contains=search).order_by('price')
+            # if request.GET.get('darazcheck') and request.GET.get('sastodealcheck') and request.GET.get('hamrobazarcheck'):
+            #     todo_items = Daraz.objects.filter(title__contains=search).order_by('price')
+            #     sasto_item = SastoDeal.objects.filter(title__contains=search).order_by('price')
+            #     hamrobazar_item= Hamrobazar.objects.filter(title__contains=search).order_by('price')
 
-            elif request.GET.get('darazcheck'):
+            if request.GET.get('darazcheck'):
                 todo_items = Daraz.objects.filter(title__contains=search)
 
-            elif request.GET.get('sastodealcheck'):
+            if request.GET.get('sastodealcheck'):
                 sasto_item = SastoDeal.objects.filter(title__contains=search)
 
-            elif request.GET.get('hamrobazarcheck'):
+            if request.GET.get('hamrobazarcheck'):
                 hamrobazar_item = Hamrobazar.objects.filter(title__contains=search)
 
-
-        # else:
-        #     search = request.GET.get('model')
-        #     print("search:" + search)
-        #     # search = request.GET.get('model')
-        #     # todo_items = Daraz.objects.filter(title__contains=search)
-        #     # sasto_item = SastoDeal.objects.filter(title__contains=search)
-        #     todo_items=None
-        #     sasto_item=None
-        #     hamrobazar_item= None
+            # elif request.GET.get('darazcheck') and request.GET.get('sastodealcheck'):
+            #     todo_items = Daraz.objects.filter(title__contains=search).order_by('price')
+            #     sasto_item = SastoDeal.objects.filter(title__contains=search).order_by('price')
+            #
+            # elif request.GET.get('sastodealcheck') and request.GET.get('hamrobazarcheck'):
+            #     sasto_item = SastoDeal.objects.filter(title__contains=search).order_by('price')
+            #     hamrobazar_item= Hamrobazar.objects.filter(title__contains=search).order_by('price')
+            #
+            # elif request.GET.get('darazcheck') and request.GET.get('hamrobazarcheck'):
+            #     todo_items = Daraz.objects.filter(title__contains=search).order_by('price')
+            #     hamrobazar_item= Hamrobazar.objects.filter(title__contains=search).order_by('price')
+            #
 
         return render(request, 'search.html', {'todo_items': todo_items, 'sasto_item': sasto_item, 'hamrobazar_item': hamrobazar_item})
 
@@ -188,7 +190,3 @@ def add_item(request):
                         discount= discount,)
     return redirect(scrape)
 
-
-# def delete_item(request, item_id):
-#     Todo.objects.get(id=item_id).delete()
-#     return redirect("index")

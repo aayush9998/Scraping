@@ -16,8 +16,28 @@
             <a class="navbar-brand" href="#">Web Scraping App</a>
     </nav>
     <div class="container">
+        <div class="row mt-4">
+        <div class="col-4 mx-auto">
+            <h3>Search for dell Laptops For comparing</h3>
+            <form action="{% url 'search' %}" method="get" class="row col-auto align-items-center">
 
-    <div class="row mt-4">
+                <div class="col-10">
+                    <input type="text" class="form-control mb-2" name ="model" id="inlineFormInputGroupUsername" placeholder="Type here.....">
+                </div>
+                <ul>
+                    <li><input type="checkbox" name="darazcheck">Daraz</li>
+<!--                    <li><input type="checkbox" name="sastodealcheck">sasto deal</li>-->
+<!--                    <li><input type="checkbox" name="hamrobazarcheck">Hamrobazar</li>-->
+                </ul>
+                <div class="col-2">
+                    <button type="submit" class="btn btn-lg btn-primary mb-2">Search</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+
 <!--        <ul>-->
 <!--            <li><input type="checkbox" data-model-name="Daraz">Daraz</li>-->
 <!--            <li><input type="checkbox" data-model-name="SastoDeal">sad</li>-->
