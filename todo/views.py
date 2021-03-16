@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Daraz, SastoDeal
+from .models import Daraz, SastoDeal, Hamrobazar
 from bs4 import BeautifulSoup as soup
 from selenium import webdriver
 from . import models
@@ -19,12 +19,14 @@ def search(request):
     if request.method == 'GET':
         todo_items = None
         sasto_item = None
+        hamrobazar_item= None
         if request.GET.get('model'):
             search = request.GET.get('model')
             print("search:"+ search)
-            if request.GET.get('darazcheck') and request.GET.get('sastodealcheck'):
+            if request.GET.get('darazcheck') and request.GET.get('sastodealcheck') and request.GET.get('hamrobazarcheck'):
                 todo_items = Daraz.objects.filter(title__contains=search).order_by('price')
                 sasto_item = SastoDeal.objects.filter(title__contains=search).order_by('price')
+                hamrobazar_item= Hamrobazar.objects.filter(title__contains=search).order_by('price')
 
             elif request.GET.get('darazcheck'):
                 todo_items = Daraz.objects.filter(title__contains=search)
@@ -32,16 +34,21 @@ def search(request):
             elif request.GET.get('sastodealcheck'):
                 sasto_item = SastoDeal.objects.filter(title__contains=search)
 
+            elif request.GET.get('hamrobazarcheck'):
+                hamrobazar_item = Hamrobazar.objects.filter(title__contains=search)
+
+
         # else:
         #     search = request.GET.get('model')
         #     print("search:" + search)
-            # search = request.GET.get('model')
-            # todo_items = Daraz.objects.filter(title__contains=search)
-            # sasto_item = SastoDeal.objects.filter(title__contains=search)
-            # todo_items=None
-            # sasto_item=None
+        #     # search = request.GET.get('model')
+        #     # todo_items = Daraz.objects.filter(title__contains=search)
+        #     # sasto_item = SastoDeal.objects.filter(title__contains=search)
+        #     todo_items=None
+        #     sasto_item=None
+        #     hamrobazar_item= None
 
-        return render(request, 'search.html', {'todo_items': todo_items, 'sasto_item': sasto_item})
+        return render(request, 'search.html', {'todo_items': todo_items, 'sasto_item': sasto_item, 'hamrobazar_item': hamrobazar_item})
 
 def sastodeal_item(request):
     SastoDeal.objects.all().delete()
@@ -91,6 +98,41 @@ def sastodeal_item(request):
 
     return redirect(scrape)
 
+def hamrobazar_item(request):
+    Hamrobazar.objects.all().delete()
+    # driver = webdriver.Chrome('E:\chromedriver_win32/chromedriver')
+    driver = webdriver.Chrome('D:\office/chromedriver')
+    baseurl = 'https://hamrobazaar.com/'
+    driver.get(
+        f'https://hamrobazaar.com/c22-computer-and-peripherals-laptops'
+    )
+
+    productlink = []
+    page = driver.page_source
+    page = driver.execute_script("return document.documentElement.outerHTML")
+
+    pg_soup = soup(page, 'lxml')
+    # print(soup)
+
+    table_datas = pg_soup.find_all('td', {'style': 'line:height:130%;'})
+    for table_data in table_datas:
+        productlink.append(baseurl + table_data.a['href'])
+    for link in productlink:
+        driver.get(link)
+        page = driver.page_source
+        page = driver.execute_script("return document.documentElement.outerHTML")
+
+        pg_soup = soup(page, 'lxml')
+
+        title = pg_soup.find('span', {'class': 'title'}).text
+        price = pg_soup.find('font', {'class': 'bigprice'}).text
+
+        Hamrobazar.objects.create(
+            title= title,
+            price= price
+        )
+
+    return redirect(scrape)
 
 def add_item(request):
     Daraz.objects.all().delete()
@@ -144,7 +186,7 @@ def add_item(request):
                         category= category,
                         original= orginal,
                         discount= discount,)
-    return redirect("scrape")
+    return redirect(scrape)
 
 
 # def delete_item(request, item_id):

@@ -38,6 +38,16 @@
         </ul>
     </div>
 
+<!--      hamrobazar-->
+<div class="col-6 col-sm-3">
+        <ul class="list-group">
+            <h4>Hamrobazar</h4>
+          {% for hamrobazar_item in hamrobazar_item %}
+            <li class="list-group-item">{{hamrobazar_item.title}} </br>{{hamrobazar_item.price}}</li>
+          {% endfor %}
+        </ul>
+    </div>
+
     <!-- Force next columns to break to new line -->
 <!--    <div class="w-100"></div>-->
 
