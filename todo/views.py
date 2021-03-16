@@ -111,10 +111,10 @@ def hamrobazar_item(request):
     page = driver.page_source
     page = driver.execute_script("return document.documentElement.outerHTML")
 
-    soup = BeautifulSoup(page, 'lxml')
+    pg_soup = soup(page, 'lxml')
     # print(soup)
 
-    table_datas = soup.find_all('td', {'style': 'line:height:130%;'})
+    table_datas = pg_soup.find_all('td', {'style': 'line:height:130%;'})
     for table_data in table_datas:
         productlink.append(baseurl + table_data.a['href'])
     for link in productlink:
@@ -122,10 +122,10 @@ def hamrobazar_item(request):
         page = driver.page_source
         page = driver.execute_script("return document.documentElement.outerHTML")
 
-        soup = BeautifulSoup(page, 'lxml')
+        pg_soup = soup(page, 'lxml')
 
-        title = soup.find('span', {'class': 'title'}).text
-        price = soup.find('font', {'class': 'bigprice'}).text
+        title = pg_soup.find('span', {'class': 'title'}).text
+        price = pg_soup.find('font', {'class': 'bigprice'}).text
 
         Hamrobazar.objects.create(
             title= title,
