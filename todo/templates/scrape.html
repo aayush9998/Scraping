@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {% block content %}
 <!--    <h1>Srcape Website</h1>-->
     <div class="row mt-4">
@@ -38,7 +37,7 @@
             <form action="{% url 'hamrobazar_item' %}" method="post" class="row col-auto align-items-center">
                 {% csrf_token %}
                 <div class="col">
-                    <input type="text" name="searchhamro" placeholder="search">
+<!--                    <input type="text" name="searchhamro" placeholder="search">-->
                     <button type="submit" class="btn btn-lg btn-primary mb-2">Hamrobazar Scraping</button>
                 </div>
             </form>
