@@ -1,4 +1,5 @@
 import requests
+import os
 from django.shortcuts import render, redirect
 from .models import Daraz, SastoDeal, Hamrobazar
 from bs4 import BeautifulSoup as soup
@@ -7,6 +8,15 @@ from . import models
 from requests.compat import quote_plus
 # Create your views here.
 
+def get_driver():
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--no-sandbox")
+    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+
+    return driver
 
 def index(request):
     # todo_items = Todo.objects.all()
@@ -88,7 +98,8 @@ def sastodeal_item(request):
 def hamrobazar_item(request):
     Hamrobazar.objects.all().delete()
     # driver = webdriver.Chrome('E:\chromedriver_win32/chromedriver')
-    driver = webdriver.Chrome('D:\office/chromedriver')
+    # driver = webdriver.Chrome('D:\office/chromedriver')
+    driver= get_driver()
     baseurl = 'https://hamrobazaar.com/'
     driver.get(
         f'https://hamrobazaar.com/search.php?do_search=Search&searchword=laptops'
