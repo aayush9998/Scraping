@@ -10,6 +10,7 @@
 <!--                    <input type="text" class="form-control mb-2" name ="content" id="inlineFormInputGroupUsername" placeholder="Type here.....">-->
 <!--                </div>-->
                 <div class="col">
+                     <input type="text" name="searchdaraz" placeholder="search">
                     <button type="submit" class="btn btn-lg btn-primary mb-2">Daraz Scraping</button>
                 </div>
             </form>
@@ -24,6 +25,7 @@
 <!--                    <input type="text" class="form-control mb-2" name ="content" id="inlineFormInputGroupUsername" placeholder="Type here.....">-->
 <!--                </div>-->
                 <div class="col">
+                    <input type="text" name="searchsasto" placeholder="search">
                     <button type="submit" class="btn btn-lg btn-primary mb-2">Sasto Deal Scraping</button>
                 </div>
             </form>
@@ -36,6 +38,7 @@
             <form action="{% url 'hamrobazar_item' %}" method="post" class="row col-auto align-items-center">
                 {% csrf_token %}
                 <div class="col">
+                    <input type="text" name="searchhamro" placeholder="search">
                     <button type="submit" class="btn btn-lg btn-primary mb-2">Hamrobazar Scraping</button>
                 </div>
             </form>

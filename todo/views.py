@@ -1,8 +1,10 @@
+import requests
 from django.shortcuts import render, redirect
 from .models import Daraz, SastoDeal, Hamrobazar
 from bs4 import BeautifulSoup as soup
 from selenium import webdriver
 from . import models
+from requests.compat import quote_plus
 # Create your views here.
 
 
@@ -23,11 +25,7 @@ def search(request):
         if request.GET.get('model'):
             search = request.GET.get('model')
             print("search:"+ search)
-            # if request.GET.get('darazcheck') and request.GET.get('sastodealcheck') and request.GET.get('hamrobazarcheck'):
-            #     todo_items = Daraz.objects.filter(title__contains=search).order_by('price')
-            #     sasto_item = SastoDeal.objects.filter(title__contains=search).order_by('price')
-            #     hamrobazar_item= Hamrobazar.objects.filter(title__contains=search).order_by('price')
-
+            
             if request.GET.get('darazcheck'):
                 todo_items = Daraz.objects.filter(title__contains=search)
 
@@ -37,29 +35,16 @@ def search(request):
             if request.GET.get('hamrobazarcheck'):
                 hamrobazar_item = Hamrobazar.objects.filter(title__contains=search)
 
-            # elif request.GET.get('darazcheck') and request.GET.get('sastodealcheck'):
-            #     todo_items = Daraz.objects.filter(title__contains=search).order_by('price')
-            #     sasto_item = SastoDeal.objects.filter(title__contains=search).order_by('price')
-            #
-            # elif request.GET.get('sastodealcheck') and request.GET.get('hamrobazarcheck'):
-            #     sasto_item = SastoDeal.objects.filter(title__contains=search).order_by('price')
-            #     hamrobazar_item= Hamrobazar.objects.filter(title__contains=search).order_by('price')
-            #
-            # elif request.GET.get('darazcheck') and request.GET.get('hamrobazarcheck'):
-            #     todo_items = Daraz.objects.filter(title__contains=search).order_by('price')
-            #     hamrobazar_item= Hamrobazar.objects.filter(title__contains=search).order_by('price')
-            #
-
         return render(request, 'search.html', {'todo_items': todo_items, 'sasto_item': sasto_item, 'hamrobazar_item': hamrobazar_item})
 
 def sastodeal_item(request):
     SastoDeal.objects.all().delete()
+    searchsasto= request.POST.get('searchsasto')
     # driver = webdriver.Chrome('E:\chromedriver_win32/chromedriver')
     driver = webdriver.Chrome('D:\office/chromedriver')
+    baseurl = 'https://www.sastodeal.com/catalogsearch/result/?q={}'
 
-    driver.get(
-        f'https://www.sastodeal.com/electronic/laptops/dell.html'
-    )
+    driver.get(baseurl.format(quote_plus(searchsasto)))
 
     productlink = []
     page = driver.page_source
@@ -106,9 +91,8 @@ def hamrobazar_item(request):
     driver = webdriver.Chrome('D:\office/chromedriver')
     baseurl = 'https://hamrobazaar.com/'
     driver.get(
-        f'https://hamrobazaar.com/c22-computer-and-peripherals-laptops'
+        f'https://hamrobazaar.com/search.php?do_search=Search&searchword=laptops'
     )
-
     productlink = []
     page = driver.page_source
     page = driver.execute_script("return document.documentElement.outerHTML")
@@ -116,9 +100,10 @@ def hamrobazar_item(request):
     pg_soup = soup(page, 'lxml')
     # print(soup)
 
-    table_datas = pg_soup.find_all('td', {'style': 'line:height:130%;'})
-    for table_data in table_datas:
-        productlink.append(baseurl + table_data.a['href'])
+    items = pg_soup.find_all('td', {'style': 'line:height:130%;'})
+    for item in items:
+        productlink.append(baseurl + item.a['href'])
+    print(productlink)
     for link in productlink:
         driver.get(link)
         page = driver.page_source
@@ -138,13 +123,13 @@ def hamrobazar_item(request):
 
 def add_item(request):
     Daraz.objects.all().delete()
+    searchdaraz = request.POST.get('searchdaraz')
     # driver = webdriver.Chrome('E:\chromedriver_win32/chromedriver')
     driver = webdriver.Chrome('D:\office/chromedriver')
-    # baseurl = "https://www.daraz.com.np/"
+    baseurl = "https://www.daraz.com.np/catalog/?q={}"
     # def getlaps(page):
     for x in range(1, 3):
-        driver.get(
-            f'https://www.daraz.com.np/laptops/dell/?page={x}')
+        driver.get(baseurl.format(quote_plus(searchdaraz)))
 
         productlink = []
 
