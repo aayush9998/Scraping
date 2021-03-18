@@ -16,7 +16,7 @@ from requests.compat import quote_plus
 #     chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 #     driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
 
-    return driver
+    # return driver
 
 def index(request):
     # todo_items = Todo.objects.all()
