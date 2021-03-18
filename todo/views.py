@@ -51,7 +51,8 @@ def sastodeal_item(request):
     SastoDeal.objects.all().delete()
     searchsasto= request.POST.get('searchsasto')
     # driver = webdriver.Chrome('E:\chromedriver_win32/chromedriver')
-    driver = webdriver.Chrome('D:\office/chromedriver')
+    # driver = webdriver.Chrome('D:\office/chromedriver')
+    driver= get_driver()
     baseurl = 'https://www.sastodeal.com/catalogsearch/result/?q={}'
 
     driver.get(baseurl.format(quote_plus(searchsasto)))
