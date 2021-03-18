@@ -148,50 +148,50 @@ def add_item(request):
     driver = get_driver()
     baseurl = "https://www.daraz.com.np/catalog/?q={}"
     # def getlaps(page):
-    for x in range(1, 3):
-        driver.get(baseurl.format(quote_plus(searchdaraz)))
+    # for x in range(1, 3):
+    driver.get(baseurl.format(quote_plus(searchdaraz)))
 
-        productlink = []
+    productlink = []
 
+    page = driver.page_source
+    page = driver.execute_script("return document.documentElement.outerHTML")
+
+    pg_soup = soup(page, "lxml")
+
+    contain = pg_soup.findAll("div", {"class": "c5TXIP"})
+
+    for items in contain:
+        item = items.find('div', {"class": "c16H9d"})
+        for link in item.findAll('a', href=True):
+            item_link = "https:" + link['href']
+            print(item_link)
+            productlink.append(item_link)
+    print(productlink)
+
+    for link in productlink:
+        driver.get(link)
         page = driver.page_source
-        page = driver.execute_script("return document.documentElement.outerHTML")
-
         pg_soup = soup(page, "lxml")
 
-        contain = pg_soup.findAll("div", {"class": "c5TXIP"})
-
-        for items in contain:
-            item = items.find('div', {"class": "c16H9d"})
-            for link in item.findAll('a', href=True):
-                item_link = "https:" + link['href']
-                print(item_link)
-                productlink.append(item_link)
-        print(productlink)
-
-        for link in productlink:
-            driver.get(link)
-            page = driver.page_source
-            pg_soup = soup(page, "lxml")
-
-            brand = pg_soup.find('a', {
-                'class': 'pdp-link pdp-link_size_s pdp-link_theme_blue pdp-product-brand__brand-link'}).text
-            title = pg_soup.find('span', {'class': 'pdp-mod-product-badge-title'}).text
-            price = pg_soup.find('span', {
+        brand = pg_soup.find('a', {
+            'class': 'pdp-link pdp-link_size_s pdp-link_theme_blue pdp-product-brand__brand-link'}).text
+        title = pg_soup.find('span', {'class': 'pdp-mod-product-badge-title'}).text
+        price = pg_soup.find('span', {
+            'class': 'pdp-price pdp-price_type_normal pdp-price_color_orange pdp-price_size_xl'}).text
+        category = pg_soup.findAll('a', attrs={'class': 'breadcrumb_item_anchor'})[2]['title']
+        try:
+            orginal = pg_soup.find('span', {
+                'class': 'pdp-price pdp-price_type_deleted pdp-price_color_lightgray pdp-price_size_xs'}).text
+            discount = pg_soup.find('span', {'class': 'pdp-product-price__discount'}).text
+        except:
+            orginal = pg_soup.find('span', {
                 'class': 'pdp-price pdp-price_type_normal pdp-price_color_orange pdp-price_size_xl'}).text
-            category = pg_soup.findAll('a', attrs={'class': 'breadcrumb_item_anchor'})[2]['title']
-            try:
-                orginal = pg_soup.find('span', {
-                    'class': 'pdp-price pdp-price_type_deleted pdp-price_color_lightgray pdp-price_size_xs'}).text
-                discount = pg_soup.find('span', {'class': 'pdp-product-price__discount'}).text
-            except:
-                orginal = pg_soup.find('span', {
-                    'class': 'pdp-price pdp-price_type_normal pdp-price_color_orange pdp-price_size_xl'}).text
-                discount = 'no discount'
-            Daraz.objects.create(brand =  brand,
-                        title= title,
-                        price= price,
-                        category= category,
-                        original= orginal,
-                        discount= discount,)
+            discount = 'no discount'
+        Daraz.objects.create(brand =  brand,
+                    title= title,
+                    price= price,
+                    category= category,
+                    original= orginal,
+                    discount= discount,)
     return redirect(scrape)
 
