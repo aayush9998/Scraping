@@ -193,5 +193,5 @@ def add_item(request):
                     category= category,
                     original= orginal,
                     discount= discount,)
-    return redirect(scrape)
+    return redirect("scrape")
 
