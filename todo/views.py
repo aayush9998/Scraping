@@ -101,7 +101,7 @@ def sastodeal_item(request):
             discount=discount,
         )
 
-    return redirect(scrape)
+    return redirect("scrape")
 
 def hamrobazar_item(request):
     Hamrobazar.objects.all().delete()
@@ -144,7 +144,8 @@ def add_item(request):
     Daraz.objects.all().delete()
     searchdaraz = request.POST.get('searchdaraz')
     # driver = webdriver.Chrome('E:\chromedriver_win32/chromedriver')
-    driver = webdriver.Chrome('D:\office/chromedriver')
+    # driver = webdriver.Chrome('D:\office/chromedriver')
+    driver = get_driver()
     baseurl = "https://www.daraz.com.np/catalog/?q={}"
     # def getlaps(page):
     for x in range(1, 3):
