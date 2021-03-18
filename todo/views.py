@@ -8,15 +8,15 @@ from . import models
 from requests.compat import quote_plus
 # Create your views here.
 #
-# def get_driver():
-#     chrome_options = webdriver.ChromeOptions()
-#     chrome_options.add_argument("--headless")
-#     chrome_options.add_argument("--disable-dev-shm-usage")
-#     chrome_options.add_argument("--no-sandbox")
-#     chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-#     driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
-#
-#     return driver
+def get_driver():
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+
+    return driver
 
 def index(request):
     # todo_items = Todo.objects.all()
@@ -52,13 +52,13 @@ def sastodeal_item(request):
     searchsasto= request.POST.get('searchsasto')
     # driver = webdriver.Chrome('E:\chromedriver_win32/chromedriver')
     # driver = webdriver.Chrome('D:\office/chromedriver')
-    # driver= get_driver()
-    chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_argument("--headless")
-    chrome_options.add_argument("--disable-dev-shm-usage")
-    chrome_options.add_argument("--no-sandbox")
-    chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+    driver= get_driver()
+    # chrome_options = webdriver.ChromeOptions()
+    # chrome_options.add_argument("--headless")
+    # chrome_options.add_argument("--disable-dev-shm-usage")
+    # chrome_options.add_argument("--no-sandbox")
+    # chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    # driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
 
     baseurl = 'https://www.sastodeal.com/catalogsearch/result/?q={}'
 
