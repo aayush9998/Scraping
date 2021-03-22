@@ -80,12 +80,7 @@ def sastodeal_item(request):
             productlink.append(link['href'])
         # print(productlink)
 
-    reqs= [grequests.get(link) for link in productlink]
-    resp = grequests.map(reqs)
-    print(resp)
-
-
-    for links in resp:
+    for links in productlink:
         driver.get(links)
         page = driver.page_source
         pg_soup = soup(page, "lxml")
