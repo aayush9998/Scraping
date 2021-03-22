@@ -1,6 +1,6 @@
 import requests
 import os
-import grequests
+# import grequests
 from django.shortcuts import render, redirect
 from .models import Daraz, SastoDeal, Hamrobazar
 from bs4 import BeautifulSoup as soup
