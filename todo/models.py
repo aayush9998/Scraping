@@ -6,7 +6,7 @@ class Daraz(models.Model):
     brand = models.CharField(max_length=50)
     title = models.CharField(max_length=255)
     price = models.CharField(max_length=100)
-    category = models.CharField(max_length=100)
+    # category = models.CharField(max_length=100)
     original = models.CharField(max_length=100)
     discount = models.CharField(max_length=100)
 
