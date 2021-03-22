@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '+!ne&f)54o@5uoeh@008mlyax8p1zxd$e&vgxu&nax=zzhe+ts'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'scrappingdata.herokuapp.com']
 
